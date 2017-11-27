@@ -8,7 +8,7 @@ import org.apache.flink.streaming.api.functions.source.SourceFunction;
  * Created by affo on 22/11/17.
  */
 public class SensorsInRoomsSource implements SourceFunction<Tuple3<Integer, String, Double>> {
-    public final static String[] ROOMS = {"r1"}; //, "r2", "r3", "r4"};
+    public final static String[] ROOMS = {"r1", "r2", "r3", "r4"};
     private DoublesGenerator generator;
     private IntegersGenerator roomIndex;
     private boolean stop;
