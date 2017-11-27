@@ -1,3 +1,24 @@
+## For the examples from official Flink training
+
+For the training, follow the setup at http://training.data-artisans.com/devEnvSetup.html.
+
+### TL;DR
+
+Clone the `flink-training-exercises` repository in the main folder (next to `flink-examples`):
+
+```
+git clone https://github.com/dataArtisans/flink-training-exercises.git
+cd flink-training-exercises
+mvn clean install
+```
+
+And refresh your maven project (the POM depends on that module).  
+Download the data set and place it in the folder `flink-examples`:
+
+```
+wget http://training.data-artisans.com/trainingData/nycTaxiRides.gz
+```
+
 ## Clustering and System Integration
 
 __NOTE:__ You can simply run the examples from the IDE and use what Docker Compose provides and
