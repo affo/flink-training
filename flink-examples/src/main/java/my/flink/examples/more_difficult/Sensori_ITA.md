@@ -1,9 +1,8 @@
-### Traccia d'Esame
+### Esercizio sui Sensori
 
 __NOTA:__
 
  * Puoi riusare il codice sviluppato ieri;
- * Usa la classe template `Exam` per la tua soluzione;
  * Devi usare il "tempo applicativo" per la tua soluzione;
  * Non preoccuparti della fault-tolerance.
 

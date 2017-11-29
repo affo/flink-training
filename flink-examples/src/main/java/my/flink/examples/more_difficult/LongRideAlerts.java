@@ -1,4 +1,4 @@
-package my.flink.examples.official_training;
+package my.flink.examples.more_difficult;
 
 import com.dataartisans.flinktraining.exercises.datastream_java.datatypes.TaxiRide;
 import com.dataartisans.flinktraining.exercises.datastream_java.sources.CheckpointedTaxiRideSource;
