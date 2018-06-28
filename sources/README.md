@@ -1,17 +1,14 @@
-This folder contains scripts for:
-
-  * Producing messages to Kafka on topic `test`, partition `0`;
-  * Consuming messages from Kafka on the provided topic, partition `0`;
+This folder contains scripts for producing messages to Kafka.
 
 ### Install
 
   ```
 $ virtualenv venv
-$ source rc
+$ source venv/bin/activate
 $ pip install -r requirements.txt
   ```
 
-_NOTE_ if `pip install` goes wrong, try with this before
+_NOTE_ if `pip install` goes wrong, try with this before:
 
 ```
 $ curl https://bootstrap.pypa.io/get-pip.py | python
@@ -33,9 +30,4 @@ $ ./produce.sh
 This script will install the virtual environment if it does not exist (if some
 error occurs, read the section above).
 
-### Consuming
-
-  ```
-$ python consumer.py <topic-name>
-# Kill with CTRL-C
-  ```
+If something goes wrong check params in `sources.conf`.

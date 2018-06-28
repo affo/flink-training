@@ -2,23 +2,21 @@
 
 ## For the examples from official Flink training
 
-Follow the instructions [here](officialtraining/README.md).
+Follow the instructions [here](flink-training/README.md).
 
-## Deploy in cluster with Docker
+## Deploy in cluster with Docker for fault tolerance experiment
 
-__NOTE:__ You can simply run the examples from the IDE and use what Docker Compose provides and
-ignore the Flink Cluster.
+The `docker-compose.yml` file provides you with Kafka, Influx and Grafana. The
+Flink job can be run by downloading a Flink installation and running the cluster
+manually (more
+[here](https://ci.apache.org/projects/flink/flink-docs-release-1.5/quickstart/setup_quickstart.html)).
 
-In order to run a job in a Flink cluster (together with a working installation of Kafka):
+In order to run the job:
 
- * run `docker-compose up` in a separate terminal;
- * set the preferred main class in the `flink-examples/pom.xml` file (optional);
- * open Flink's web dashboard available at `localhost:8081` (something like `192.168.99.100:8081` if you use Docker Toolbox on MacOS);
+ * open Flink's web dashboard available at `localhost:8081`;
  * Run `make` to package the jar;
- * Upload the jar manually and submit the job (you can set the entrypoint if you want).
-
-You can also run the examples from the IDE (carefully setup the constants in class `K`).
+ * Upload the jar manually and submit the job.
 
 Grafana is available at port 3000.
 
-For producing/consuming to/from Kafka consult the README in `sources` folder.
+For producing data to Kafka, follow [these](sources/README.md) instructions.
