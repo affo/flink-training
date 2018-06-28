@@ -5,6 +5,9 @@ target
 *.pyc
 venv
 
-nycTaxiRides.gz
-flink-training-exercises
+*.key
 
+nycTaxiRides.gz
+training-dep
+flink-install
+flink-*.tgz

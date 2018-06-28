@@ -1,3 +1,2 @@
 build:
-	mvn -f flink-examples/pom.xml clean package -Pbuild-jar -DskipTests
-
+	mvn -f ./transformations/pom.xml clean package -DskipTests
