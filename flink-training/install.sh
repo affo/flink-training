@@ -10,8 +10,13 @@ git clone https://github.com/dataArtisans/flink-training-exercises.git training-
 mvn -f ./training-dep/pom.xml clean install
 
 if [ -f "./nycTaxiRides.gz" ]; then
-  echo "Data has already been downloaded"
-  exit 1
+  echo "Rides has already been downloaded"
+else
+    wget http://training.data-artisans.com/trainingData/nycTaxiRides.gz
 fi
 
-wget http://training.data-artisans.com/trainingData/nycTaxiRides.gz
+if [ -f "./nycTaxiRides.gz" ]; then
+  echo "Fares has already been downloaded"
+else
+    wget http://training.data-artisans.com/trainingData/nycTaxiFares.gz
+fi

@@ -25,4 +25,5 @@ Download the data set and place it in the folder `flink-training`:
 
 ```
 wget http://training.data-artisans.com/trainingData/nycTaxiRides.gz
+wget http://training.data-artisans.com/trainingData/nycTaxiFares.gz
 ```
