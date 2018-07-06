@@ -17,7 +17,7 @@ Clone the `flink-training-exercises` repository in the main folder (next to `fli
 ```
 git clone https://github.com/dataArtisans/flink-training-exercises.git
 cd flink-training-exercises
-mvn clean install
+mvn clean install -DskipTests
 ```
 
 And refresh your maven project (the POM depends on that module).  
