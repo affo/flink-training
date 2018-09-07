@@ -11,3 +11,6 @@ nycTaxiRides.gz
 training-dep
 flink-install
 flink-*.tgz
+
+kafka-install
+!kafka-install/.gitkeep
