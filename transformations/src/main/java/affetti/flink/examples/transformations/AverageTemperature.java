@@ -34,8 +34,6 @@ public class AverageTemperature {
                 .addSource(new SensorsInRoomsSource(20, 35d));
 
         temperatures
-                .map(t2 -> Tuple3.of(t2.f0, t2.f1, 1))
-                .returns(t3Type)
                 .keyBy(0) // keyBy room name
                 .window(SlidingEventTimeWindows.of(Time.milliseconds(15), Time.milliseconds(5)))
                 .process(new WindowAverager())
@@ -43,25 +41,17 @@ public class AverageTemperature {
 
         env.execute();
 
-        System.out.println("\n>>> Alternatively:\n");
-        // explain the difference in behaviour for the windowIds
-
+        System.out.println("\n>>> Alternatively, with aggregate function:\n");
+        // gain in performance wrt ProcessWindowFunction
         temperatures
-                .map(t2 -> Tuple3.of(t2.f0, t2.f1, 1))
-                .returns(t3Type)
                 .keyBy(0) // keyBy room name
-                .window(SlidingEventTimeWindows.of(Time.milliseconds(15), Time.milliseconds(5)))
-                .reduce(new SensorUtils.Summer()) //, new SensorUtils.OnlyForMeta()) // -> use this to have same timestamps without losing performance
-                .map(t -> {
-                    t.f1 = t.f1 / t.f2;
-                    return t;
-                })
-                .returns(t3Type)
+                .timeWindow(Time.milliseconds(15), Time.milliseconds(5))
+                .aggregate(new SensorUtils.Averager(), new SensorUtils.Averager.ForMeta()) // -> use the function to enrich output with metadata about windowing
                 .print();
 
         env.execute();
 
-        System.out.println("\n>>> Alternatively, to preserve window end:\n");
+        System.out.println("\n>>> Alternatively, with reduce function:\n");
         // explain the difference in behaviour for the windowIds
 
         temperatures
@@ -69,7 +59,7 @@ public class AverageTemperature {
                 .returns(t3Type)
                 .keyBy(0) // keyBy room name
                 .window(SlidingEventTimeWindows.of(Time.milliseconds(15), Time.milliseconds(5)))
-                .reduce(new SensorUtils.Summer(), new SensorUtils.OnlyForMeta()) // -> use this to have same timestamps without losing performance
+                .reduce(new SensorUtils.Summer(), new SensorUtils.Summer.ForMeta())
                 .map(t -> {
                     t.f2 = t.f2 / t.f3;
                     return t;
@@ -81,22 +71,22 @@ public class AverageTemperature {
     }
 
     private static class WindowAverager extends ProcessWindowFunction<
-            Tuple3<String, Double, Integer>,
-            Tuple4<Long, String, Double, Integer>, Tuple, TimeWindow> {
+            Tuple2<String, Double>,
+            Tuple3<Long, String, Double>, Tuple, TimeWindow> {
 
         @Override
-        public void process(Tuple key, Context context, Iterable<Tuple3<String, Double, Integer>> input,
-                            Collector<Tuple4<Long, String, Double, Integer>> out) throws Exception {
+        public void process(Tuple key, Context context, Iterable<Tuple2<String, Double>> input,
+                            Collector<Tuple3<Long, String, Double>> out) throws Exception {
             int count = 0;
             double sum = 0;
 
-            for (Tuple3<String, Double, Integer> element : input) {
+            for (Tuple2<String, Double> element : input) {
                 count++;
                 sum += element.f1;
             }
 
             String roomName = key.getField(0).toString();
-            out.collect(Tuple4.of(context.window().getEnd(), roomName, sum / count, count));
+            out.collect(Tuple3.of(context.window().getEnd(), roomName, sum / count));
         }
     }
 }
